@@ -18,10 +18,20 @@ scraperQueue.process(async (job) => {
       if (result.success) {
         // Process each RSS item
         for (const item of result.data.items) {
-          // Check if this update already exists
+          // ENHANCED: Check if this update already exists (multiple checks)
           const existing = await Update.findOne({
-            competitor: competitorId,
-            'source.url': item.link
+            $or: [
+              // Check by source URL
+              {
+                competitor: competitorId,
+                'source.url': item.link
+              },
+              // Check by title + competitor (in case URL changes)
+              {
+                competitor: competitorId,
+                title: item.title
+              }
+            ]
           });
 
           if (!existing) {
@@ -41,6 +51,8 @@ scraperQueue.process(async (job) => {
               }
             });
 
+            console.log(`✨ New RSS update created: ${item.title.substring(0, 50)}...`);
+
             // Queue for AI classification
             await classificationQueue.add({
               updateId: update._id,
@@ -54,6 +66,8 @@ scraperQueue.process(async (job) => {
                 delay: 5000
               }
             });
+          } else {
+            console.log(`⏭️  Skipping duplicate: ${item.title.substring(0, 50)}...`);
           }
         }
 
@@ -71,6 +85,7 @@ scraperQueue.process(async (job) => {
       result = await scraperService.scrapeWebpage(url);
 
       if (result.success) {
+        // ENHANCED: Better duplicate detection for websites
         // Check if content changed significantly
         const lastUpdate = await Update.findOne({
           competitor: competitorId,
@@ -83,6 +98,8 @@ scraperQueue.process(async (job) => {
         );
 
         if (hasChanges) {
+          console.log(`✨ Website changed: ${url}`);
+          
           // Create new update
           const update = await Update.create({
             competitor: competitorId,
@@ -101,6 +118,8 @@ scraperQueue.process(async (job) => {
             }
           });
 
+          console.log(`✨ New website update created: ${result.data.title.substring(0, 50)}...`);
+
           // Queue for AI classification
           await classificationQueue.add({
             updateId: update._id,
@@ -108,6 +127,8 @@ scraperQueue.process(async (job) => {
             content: update.content,
             competitorId
           });
+        } else {
+          console.log(`⏭️  No changes detected for: ${url}`);
         }
 
         // Update competitor metrics

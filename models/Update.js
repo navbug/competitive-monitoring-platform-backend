@@ -85,5 +85,7 @@ updateSchema.index({ 'classification.category': 1 });
 updateSchema.index({ 'classification.impactLevel': 1 });
 updateSchema.index({ detectedAt: -1 });
 updateSchema.index({ status: 1 });
+// Prevent duplicates: unique index on competitor + source URL
+updateSchema.index({ competitor: 1, 'source.url': 1 }, { unique: true, sparse: true });
 
 module.exports = mongoose.model('Update', updateSchema);
