@@ -62,16 +62,6 @@ app.use((req, res) => {
   res.status(404).json({ success: false, message: 'Route not found' });
 });
 
-
-// const geminiService = require("./services/geminiService")
-
-// geminiService.classifyUpdate(
-//   'New Pricing Update',
-//   'We are excited to announce new pricing...',
-//   'Mint'
-// ).then(result => console.log(result));
-
-
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
