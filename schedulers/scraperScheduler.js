@@ -6,28 +6,28 @@ function startScrapers() {
   console.log('⏰ Starting scraper schedulers...');
 
   // Website scraping - every 5 minutes (for testing)
-  cron.schedule('*/5 * * * *', async () => {
-    console.log('🕒 Running website scraper (5min interval)...');
-    await runWebsiteScraper('5minutes');
-  });
+  // cron.schedule('*/5 * * * *', async () => {
+  //   console.log('🕒 Running website scraper (5min interval)...');
+  //   await runWebsiteScraper('5minutes');
+  // });
 
   // Website scraping - every 10 minutes (for testing)
-  cron.schedule('*/10 * * * *', async () => {
-    console.log('🕒 Running website scraper (10min interval)...');
-    await runWebsiteScraper('10minutes');
-  });
+  // cron.schedule('*/10 * * * *', async () => {
+  //   console.log('🕒 Running website scraper (10min interval)...');
+  //   await runWebsiteScraper('10minutes');
+  // });
 
   // Website scraping - every 30 minutes (for testing)
-  cron.schedule('*/30 * * * *', async () => {
-    console.log('🕒 Running website scraper (30min interval)...');
-    await runWebsiteScraper('30minutes');
-  });
+  // cron.schedule('*/30 * * * *', async () => {
+  //   console.log('🕒 Running website scraper (30min interval)...');
+  //   await runWebsiteScraper('30minutes');
+  // });
 
   // Website scraping - every hour
-  cron.schedule('0 * * * *', async () => {
-    console.log('🕒 Running website scraper (hourly)...');
-    await runWebsiteScraper('hourly');
-  });
+  // cron.schedule('0 * * * *', async () => {
+  //   console.log('🕒 Running website scraper (hourly)...');
+  //   await runWebsiteScraper('hourly');
+  // });
 
   // Website scraping - every 6 hours
   cron.schedule('0 */6 * * *', async () => {

@@ -31,7 +31,7 @@ const projectManagementCompetitors = [
     },
     monitoringConfig: {
       enabled: true,
-      frequency: "30minutes", // Fast testing!
+      frequency: "6hours", // Fast testing!
       priority: "high"
     },
     tags: ["kanban", "visual", "collaboration", "boards"],
@@ -98,7 +98,7 @@ const projectManagementCompetitors = [
     },
     monitoringConfig: {
       enabled: true,
-      frequency: "30minutes",
+      frequency: "6hours",
       priority: "high"
     },
     tags: ["customizable", "workflows", "work-os", "visual"],
@@ -132,7 +132,7 @@ const projectManagementCompetitors = [
     },
     monitoringConfig: {
       enabled: true,
-      frequency: "30minutes",
+      frequency: "6hours",
       priority: "high"
     },
     tags: ["all-in-one", "productivity", "customizable", "features"],
